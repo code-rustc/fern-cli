@@ -5,5 +5,5 @@
  *     {}
  */
 export interface ListPetsRequest {
-    limit?: number;
+  limit?: number;
 }

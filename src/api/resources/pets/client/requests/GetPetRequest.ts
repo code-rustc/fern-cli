@@ -7,5 +7,5 @@
  *     }
  */
 export interface GetPetRequest {
-    petId: number;
+  petId: number;
 }
