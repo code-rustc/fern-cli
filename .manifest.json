@@ -1,0 +1,130 @@
+{
+  "sdkGenVersion": "3.1.0",
+  "resolvedGeneratorVersion": "4.4.0",
+  "date": "2026-10-09T19:03:30.432Z",
+  "config": {
+    "schemaVersion": "sdk-config-ir/v1",
+    "source": {
+      "specs": [
+        {
+          "id": "petstore",
+          "specUrl": "https://us-prod-sdk-gen-api-code-gen-uploads.s3.us-east-1.amazonaws.com/fern-builds/sources/ee9094e730cc2db9b0cb3dae8a2833279f5da050951c5b316c27a3dd2a8f2c0e/30e1dc738931d8033b952cff5f843ee990334aab8daf91415780822aaf5ff1c5/fern-source-0?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LJBU7IJHCCIMP%2F20261009%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20261009T190326Z&X-Amz-Expires=86400&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEHsaCXVzLWVhc3QtMSJGMEQCID5SfwrBEIt6noY1Lccr7bGxZ5yoAPh0Akb%2Bam%2FJ6bwiAiAj3Cj%2FDRK495kO3H5QRVte25FDoUSnwS0dudHOOk9ARCqTBQhDEAAaDDYzNzQyMzY1MjE1OCIMqdIhanWq3bJbFIdgKvAEO7QqbTuhDX6pH%2B04lh1RE0I%2BfOuO5ZZ1AXqnekJ%2BhRXQkouemNe2OyGYlDn%2FJzRrBdhfHaYDFo0eYrCSFDJDqUyCco2r8dBczeGVRuT8b3LCoQg3i3PkSIPnC%2FIEoft7BYnZF4iY62eEVJOUkfrOmDCNQ6X5pPMPEZ1eqGKwS19PFxb91C7oH7CxO50QOSWuT%2BW4Yv8IQM5ia0od931YmI%2B1djDujfe171gcPfA%2BA9T5TvJVMS6XFjsFlPqUa2AX2MXvDWC%2F66pzRUoOlKU3y5dzVpK2vdcGdh2qQcj%2BKq64PrY6j%2B%2Fy9a8722WieQ8zGLc75tdnpk8RUDSC1Wn1lU3iSRzVzEZbIX1a0VeSkw1AOndNnsH3kdYjxz5gQX6sZ8oS7cPJ7Zwr%2BAJ5h5rGn1GbgLU87UaAls4B1hDbSE%2F6KMGTwWXAndFvwZixm%2F4WtRgAAtoygh7SXdIgWuVCenF1PG3%2Bwp0peqwmcVB4xEBmBsV5XjM4fW6mjqvGI2EWLQyYLeY5f1Ol2K3mycSwfCUgAayyj8jffmZH2dZFBoRY43CFsXzSmPXatjl7b0U2VjXtARVkAp%2FYRomUyGwUctvLW7GMSwCJGTZOyz5XyfziThEI%2F65BsQKgb1YfYVd7G99KPElQf3R84z16CnvvK4ZZHI0WiGhn1AE5ykxh6MziW%2BSnKbmK3BG2D6ctVnJ2DBjwPAaO0XWiGHtjvrY4zZVLiUtZVwTR8ZTjiSwBDUPbZjkxx6iHOApZiDsMt3%2BoTVcLLO4A3tn0UfwcP99Z7JqcodCJYkLU%2BjbHsn1EiMtTmAyrl%2FJAjERPJMmXzx%2BYMNbxpNYGOpoBvc8j4s41LBKmgcEN4u878Mg%2BLy4JOrFOODkZDdQA9lZyqh%2FrBgbJ6Ns5Sq0RdsRYQdcka8KnZZXLw3UySr9pFBhZmS7XdpqkCbf%2BSGU6hYX4JDZ%2FEFMHlxuLBqjMEg9O88%2BUfyyNjCndlvbQdLKUWjKxJQjZedvuoP3Sb2zod5dHLcaErzljJkxr2o0XOxaylAa0rrWDSCqBMQ%3D%3D&X-Amz-Signature=4bcd269c12cf9dbf62dc861d58d7085b8b558ea4a7c3711b781c73e73ea18754&X-Amz-SignedHeaders=host&x-id=GetObject",
+          "specType": "openapi"
+        }
+      ]
+    },
+    "target": {
+      "language": "typescript",
+      "sourceOrigin": "fern",
+      "sdkName": "api",
+      "apiName": "api",
+      "organizationName": "code-rustc",
+      "sdkVersion": "0.3.2"
+    },
+    "api": {
+      "baseUrl": "",
+      "environments": [],
+      "environmentVariables": []
+    },
+    "client": {
+      "retry": {
+        "enabled": true,
+        "maxAttempts": 3,
+        "retryDelayMs": 150,
+        "maxDelayMs": 5000,
+        "jitterMs": 50,
+        "backoffFactor": 2,
+        "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
+        "maxRetryAfterDelayMs": 60000
+      },
+      "responseHeaders": false,
+      "multiTenant": false,
+      "additionalConstructorParameters": []
+    },
+    "package": {
+      "packageName": "uat026-w5e0z"
+    },
+    "output": {
+      "delivery": "zip",
+      "credentialResolution": "refs-only"
+    },
+    "docs": {},
+    "generation": {
+      "includeWatermark": false,
+      "ai": false,
+      "buildAllModels": false,
+      "inferServiceNames": false,
+      "includeDeprecatedOperations": true,
+      "multipleResponses": false,
+      "generateFullProject": false,
+      "devContainer": false,
+      "allowMockClient": false
+    }
+  },
+  "files": [
+    "package.json",
+    "tsconfig.json",
+    "examples/tsconfig.json",
+    "tsconfig.types.json",
+    ".gitignore",
+    "scripts/prepublish.sh",
+    ".env.example",
+    "examples/package.json",
+    "examples/README.md",
+    "examples/src/index.ts",
+    "src/http/client.ts",
+    "src/http/types.ts",
+    "src/http/handlers/terminating-handler.ts",
+    "src/http/handlers/response-validation-handler.ts",
+    "src/http/handlers/request-validation-handler.ts",
+    "src/http/transport/request.ts",
+    "src/http/transport/request-builder.ts",
+    "src/http/transport/request-fetch-adapter.ts",
+    "src/http/transport/transport-hook-adapter.ts",
+    "src/http/errors/throwable-error.ts",
+    "src/http/errors/timeout-error.ts",
+    "src/http/response-promise.ts",
+    "src/http/auth.ts",
+    "src/http/page.ts",
+    "src/http/handlers/retry-handler.ts",
+    "src/http/utils/logger.ts",
+    "src/http/handlers/logging-handler.ts",
+    "src/services/common/pet.ts",
+    "src/services/common/new-pet.ts",
+    "src/services/base-service.ts",
+    "src/services/pets/pets-service.ts",
+    "src/index.ts",
+    "src/services/common/index.ts",
+    "src/services/pets/index.ts",
+    "src/http/index.ts",
+    "src/http/errors/index.ts",
+    "src/api.ts",
+    "src/services/pets/api.ts",
+    "src/http/handlers/handler-chain.ts",
+    "src/services/pets/request-params.ts",
+    "reference.md",
+    "CONTRIBUTING.md",
+    "src/http/handlers/hook-handler.ts",
+    "src/http/hooks/custom-hook.ts",
+    "src/http/hooks/hook.ts",
+    "src/http/environment.ts",
+    "src/http/serialization/base-serializer.ts",
+    "src/http/serialization/query-serializer.ts",
+    "src/http/serialization/path-serializer.ts",
+    "src/http/serialization/header-serializer.ts",
+    "src/http/serialization/cookie-serializer.ts",
+    "src/core/index.ts",
+    "src/core/cast.ts",
+    "src/http/transport/types.ts",
+    "src/http/utils/runtime.ts",
+    "src/http/utils/line-decoder.ts",
+    "src/http/utils/sse-stream.ts",
+    "src/http/utils/pager.ts",
+    "src/http/utils/response-matcher.ts",
+    "src/http/utils/content-type.ts",
+    "src/http/utils/supplier.ts",
+    "src/http/utils/passthrough-request.ts",
+    "src/http/utils/fetcher.ts",
+    "README.md"
+  ]
+}

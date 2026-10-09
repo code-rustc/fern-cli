@@ -1,75 +1,62 @@
 {
-  "name": "test-package",
-  "type": "commonjs",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.mjs",
-  "types": "./dist/cjs/index.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/esm/index.d.mts",
-        "default": "./dist/esm/index.mjs"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.ts",
-        "default": "./dist/cjs/index.js"
-      },
-      "default": "./dist/cjs/index.js"
-    },
-    "./pets": {
-      "import": {
-        "types": "./dist/esm/api/resources/pets/exports.d.mts",
-        "default": "./dist/esm/api/resources/pets/exports.mjs"
-      },
-      "require": {
-        "types": "./dist/cjs/api/resources/pets/exports.d.ts",
-        "default": "./dist/cjs/api/resources/pets/exports.js"
-      },
-      "default": "./dist/cjs/api/resources/pets/exports.js"
-    },
-    "./package.json": "./package.json"
+  "name": "uat026-w5e0z",
+  "version": "0.3.2",
+  "description": "Throwaway API for the CLI-025 direct-registry publish test. Not a real service.",
+  "source": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "browser": "./dist/index.js",
+  "unpkg": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "tsc --noEmit",
+    "build": "tsup-node src/index.ts src/services/pets/index.ts --format cjs,esm --clean && tsc --project tsconfig.types.json && node -e \"const fs=require('fs');const path=require('path');function fx(s,d){const dir=path.dirname(s);const c=fs.readFileSync(s,'utf8');const p=c.replace(/((?:from|import)\\s*\\(?\\s*[\\x27\\x22])(\\.\\.?\\/[^\\x27\\x22]+?)([\\x27\\x22])/g,(m,a,b,e)=>{if(/\\.[a-zA-Z0-9]+$/.test(b))return m;const suffix=fs.existsSync(path.join(dir,b)+'.d.ts')?'.js':'/index.js';return a+b+suffix+e});fs.writeFileSync(d,p)};fx('dist/index.d.ts','dist/index.d.mts');fx('dist/services/pets/index.d.ts','dist/services/pets/index.d.mts')\"",
+    "prepublishOnly": "chmod +x ./scripts/prepublish.sh && ./scripts/prepublish.sh && npm run build",
+    "test-example": "cd examples && tsc --noEmit"
   },
+  "keywords": [
+    "typescript",
+    "sdk",
+    "api",
+    "client"
+  ],
   "files": [
     "dist",
-    "reference.md",
-    "README.md",
-    "LICENSE"
+    "README.md"
   ],
-  "scripts": {
-    "format": "biome format --write --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
-    "format:check": "biome format --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
-    "lint": "biome lint --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
-    "lint:fix": "biome lint --fix --unsafe --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
-    "check": "biome check --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
-    "check:fix": "biome check --fix --unsafe --skip-parse-errors --no-errors-on-unmatched --max-diagnostics=none",
-    "build": "pnpm build:cjs && pnpm build:esm",
-    "build:cjs": "tsc --project ./tsconfig.cjs.json",
-    "build:esm": "tsc --project ./tsconfig.esm.json && node scripts/rename-to-esm-files.js dist/esm",
-    "test": "vitest",
-    "test:unit": "vitest --project unit",
-    "test:wire": "vitest --project wire"
+  "author": "",
+  "devDependencies": {
+    "typescript": "5.3.3",
+    "@types/node": "^22.14.0",
+    "tsup": "^6.7.0"
   },
   "dependencies": {},
-  "devDependencies": {
-    "webpack": "^5.105.4",
-    "ts-loader": "^9.5.4",
-    "vitest": "^4.1.1",
-    "msw": "2.11.2",
-    "@types/node": "^20.0.0",
-    "typescript": "~5.9.3",
-    "@biomejs/biome": "2.4.10"
-  },
-  "browser": {
-    "fs": false,
-    "os": false,
-    "path": false,
-    "stream": false,
-    "crypto": false
-  },
-  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=18.0.0"
   },
   "sideEffects": false,
-  "version": ""
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json",
+    "./pets": {
+      "require": {
+        "types": "./dist/services/pets/index.d.ts",
+        "default": "./dist/services/pets/index.js"
+      },
+      "import": {
+        "types": "./dist/services/pets/index.d.mts",
+        "default": "./dist/services/pets/index.mjs"
+      }
+    }
+  }
 }
