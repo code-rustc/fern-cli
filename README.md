@@ -1,57 +1,39 @@
-# CLI-025 Petstore CLI
+# CodeRustc TypeScript Library
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-CLI%20generated%20by%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fcode-rustc%2Ffern-cli)
-[![npm shield](https://img.shields.io/npm/v/cli030-preprod-g85nec)](https://www.npmjs.com/package/cli030-preprod-g85nec)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fcode-rustc%2Ffern-cli)
+[![npm shield](https://img.shields.io/npm/v/)](https://www.npmjs.com/package/)
 
-Command-line interface for the CLI-025 Petstore API.
+The CodeRustc TypeScript library provides convenient access to the CodeRustc APIs from TypeScript.
 
-## Table of contents
+## Table of Contents
 
 - [Installation](#installation)
 - [Authentication](#authentication)
-- [Quick start](#quick-start)
+- [Quick Start](#quick-start)
+- [Reference](#reference)
 - [Usage](#usage)
 - [Documentation](#documentation)
+- [Environments](#environments)
+- [Request and Response Types](#request-and-response-types)
+- [Exception Handling](#exception-handling)
 - [Advanced](#advanced)
-  - [Common flags](#common-flags)
-  - [Environment variables](#environment-variables)
-  - [Output formats](#output-formats)
-  - [Shell completion](#shell-completion)
+  - [Subpackage Exports](#subpackage-exports)
+  - [Additional Headers](#additional-headers)
+  - [Additional Query String Parameters](#additional-query-string-parameters)
+  - [Retries](#retries)
+  - [Timeouts](#timeouts)
+  - [Aborting Requests](#aborting-requests)
+  - [Access Raw Response Data](#access-raw-response-data)
+  - [Logging](#logging)
+  - [Custom Fetch](#custom-fetch)
+  - [Runtime Compatibility](#runtime-compatibility)
 - [Attribution](#attribution)
+- [Contributing](#contributing)
 
 ## Installation
 
-### Shell (macOS / Linux)
-
-```bash
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/code-rustc/fern-cli/releases/latest/download/fern-cli-sdk-installer.sh | sh
-```
-
-### PowerShell (Windows)
-
-```powershell
-powershell -ExecutionPolicy ByPass -c "irm https://github.com/code-rustc/fern-cli/releases/latest/download/fern-cli-sdk-installer.ps1 | iex"
-```
-
-### npm
-
-```bash
-npm install -g cli030-preprod-g85nec
-```
-
-Or run directly without installing:
-
-```bash
-npx cli030-preprod-g85nec --help
-```
-
-### Build from source
-
-If you prefer to build from source, install the [Rust toolchain](https://rustup.rs/) and run:
-
-```bash
-cargo build --release
-./target/release/cli-025-petstore --help
+```sh
+npm i -s 
 ```
 
 ## Authentication
@@ -80,91 +62,289 @@ cli-025-petstore <resource> <method>
 
 Run `cli-025-petstore <resource> --help` to see available methods for a resource.
 
+## Reference
+
+A full reference for this library is available [here](https://github.com/code-rustc/fern-cli/blob/HEAD/./reference.md).
+
 ## Usage
 
-Every API resource appears as a subcommand (e.g. `cli-025-petstore <resource> <method>`). Run `cli-025-petstore <resource> --help` to see available methods.
+Instantiate and use the client with the following:
 
-Provide request parameters as flags or as JSON:
+```typescript
+import { CodeRustcApiClient } from "";
 
-```bash
-cli-025-petstore <resource> <method> --json '{"key": "value"}'
+const client = new CodeRustcApiClient({ token: "YOUR_TOKEN" });
+await client.pets.createPet({
+    name: "Rex",
+    tag: "dog"
+});
 ```
 
 ## Documentation
 
 See [reference.md](./reference.md) for the full command reference.
 
+## Environments
+
+This SDK allows you to configure different environments for API requests.
+
+```typescript
+import { CodeRustcApiClient, CodeRustcApiEnvironment } from "CodeRustcApi";
+
+const client = new CodeRustcApiClient({
+    environment: CodeRustcApiEnvironment.Default,
+});
+```
+
+## Request and Response Types
+
+The SDK exports all request and response types as TypeScript interfaces. Simply import them with the
+following namespace:
+
+```typescript
+import { CodeRustcApi } from "CodeRustcApi";
+
+const request: CodeRustcApi.ListPetsRequest = {
+    ...
+};
+```
+
+## Exception Handling
+
+When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error
+will be thrown.
+
+```typescript
+import { CodeRustcApiError } from "CodeRustcApi";
+
+try {
+    await client.pets.createPet(...);
+} catch (err) {
+    if (err instanceof CodeRustcApiError) {
+        console.log(err.statusCode);
+        console.log(err.message);
+        console.log(err.body);
+        console.log(err.rawResponse);
+    }
+}
+```
+
 ## Advanced
 
-### Common flags
+### Subpackage Exports
 
-These flags are available on every operation:
+This SDK supports direct imports of subpackage clients, which allows JavaScript bundlers to tree-shake and include only the imported subpackage code. This results in much smaller bundle sizes.
 
-| Flag | Description |
-|------|-------------|
-| `--dry-run` | Validate the request locally and print the HTTP request without sending it |
-| `--json <JSON\|->` | Supply a request body as JSON (or `-` to read stdin) |
-| `--params <JSON>` | Merge extra parameters as JSON (overrides individual flags) |
-| `--format <json\|table\|yaml\|csv>` | Output format (default `json`) |
-| `--output <PATH>` | Write binary responses to a file |
-| `--base-url <URL>` | Override the API base URL |
-| `--no-extract` | Print the full response body instead of the `x-fern-sdk-return-value` extraction |
-| `--no-retry` | Disable retries declared by `x-fern-retries`, including network errors |
-| `-q, --quiet` | Suppress stdout output on success (errors still go to stderr) |
+```typescript
+import { PetsClient } from 'CodeRustcApi/pets';
 
-Operations the spec describes how to page (via `x-fern-pagination` or a root `page_token` parameter) also accept:
-
-| Flag | Description |
-|------|-------------|
-| `--page-all` | Auto-paginate and stream results as NDJSON |
-| `--page-limit <N>` | Max pages to fetch when auto-paginating (default `10`) |
-| `--page-delay <MS>` | Delay between page fetches in milliseconds (default `100`) |
-| `--no-pager` | Disable the pager even on interactive terminals |
-
-Operations the spec marks as streaming (via `x-fern-streaming`) also accept:
-
-| Flag | Description |
-|------|-------------|
-| `--no-stream` | Buffer the streaming response and print it as a single value once complete |
-
-### Environment variables
-
-| Variable | Description |
-|----------|-------------|
-| `CLI_025_PETSTORE_BASE_URL` | Override the API base URL |
-| `CLI_025_PETSTORE_CA_BUNDLE` | Path to PEM file with extra trust roots (or `SSL_CERT_FILE`) |
-| `CLI_025_PETSTORE_INSECURE=1` | Skip TLS verification (debugging only) |
-| `CLI_025_PETSTORE_PROXY` | HTTP(S) proxy URL |
-| `CLI_025_PETSTORE_TIMEOUT_SECS` | Total request timeout in seconds |
-
-Standard environment variables (`HTTPS_PROXY` / `HTTP_PROXY` / `NO_PROXY` / `SSL_CERT_FILE`) are also honored.
-
-### Output formats
-
-Use the global `--format` flag to control output. Supported values: `json`, `table`, `yaml`, `csv`, `jsonl`, `raw`, `http`.
-
-Without `--format`, output (including errors) is `table` when stdout is a terminal and `json` when it is piped or redirected — so scripts and agents get JSON by default. Pass `--human` to keep the interactive rendering when piping to a pager, and `--format json` to pin JSON in a terminal.
-
-```bash
-# Pipe JSON output through jq
-cli-025-petstore <resource> <method> --format json | jq
-
-# Keep the human rendering even when piped
-cli-025-petstore <resource> <method> --human | less
-
-# Machine-readable catalog of every operation (same as --schema)
-cli-025-petstore --help --format json | jq '.operations | length'
+const client = new PetsClient({...});
 ```
 
-### Shell completion
+### Additional Headers
 
-Generate shell completion scripts:
+If you would like to send additional headers as part of the request, use the `headers` request option.
 
-```bash
-cli-025-petstore completion <bash|zsh|fish|powershell>
+```typescript
+import { CodeRustcApiClient } from "CodeRustcApi";
+
+const client = new CodeRustcApiClient({
+    ...
+    headers: {
+        'X-Custom-Header': 'custom value'
+    }
+});
+
+const response = await client.pets.createPet(..., {
+    headers: {
+        'X-Custom-Header': 'custom value'
+    }
+});
 ```
+
+### Additional Query String Parameters
+
+If you would like to send additional query string parameters as part of the request, use the `queryParams` request option.
+
+```typescript
+const response = await client.pets.createPet(..., {
+    queryParams: {
+        'customQueryParamKey': 'custom query param value'
+    }
+});
+```
+
+### Retries
+
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 2).
+
+Which status codes are retried depends on the `retryStatusCodes` generator configuration:
+
+**`legacy`** (current default): retries on
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses) (All server errors, including 500)
+
+**`recommended`**: retries on
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [502](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502) (Bad Gateway)
+- [503](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503) (Service Unavailable)
+- [504](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504) (Gateway Timeout)
+
+Use the `maxRetries` request option to configure this behavior.
+
+```typescript
+const response = await client.pets.createPet(..., {
+    maxRetries: 0 // override maxRetries at the request level
+});
+```
+
+### Timeouts
+
+The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
+
+```typescript
+const response = await client.pets.createPet(..., {
+    timeoutInSeconds: 30 // override timeout to 30s
+});
+```
+
+### Aborting Requests
+
+The SDK allows users to abort requests at any point by passing in an abort signal.
+
+```typescript
+const controller = new AbortController();
+const response = await client.pets.createPet(..., {
+    abortSignal: controller.signal
+});
+controller.abort(); // aborts the request
+```
+
+### Access Raw Response Data
+
+The SDK provides access to raw response data, including headers, through the `.withRawResponse()` method.
+The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property.
+
+```typescript
+const { data, rawResponse } = await client.pets.createPet(...).withRawResponse();
+
+console.log(data);
+console.log(rawResponse.headers['X-My-Header']);
+```
+
+### Logging
+
+The SDK supports logging. You can configure the logger by passing in a `logging` object to the client options.
+
+```typescript
+import { CodeRustcApiClient, logging } from "CodeRustcApi";
+
+const client = new CodeRustcApiClient({
+    ...
+    logging: {
+        level: logging.LogLevel.Debug, // defaults to logging.LogLevel.Info
+        logger: new logging.ConsoleLogger(), // defaults to ConsoleLogger
+        silent: false, // defaults to true, set to false to enable logging
+    }
+});
+```
+The `logging` object can have the following properties:
+- `level`: The log level to use. Defaults to `logging.LogLevel.Info`.
+- `logger`: The logger to use. Defaults to a `logging.ConsoleLogger`.
+- `silent`: Whether to silence the logger. Defaults to `true`.
+
+The `level` property can be one of the following values:
+- `logging.LogLevel.Debug`
+- `logging.LogLevel.Info`
+- `logging.LogLevel.Warn`
+- `logging.LogLevel.Error`
+
+To provide a custom logger, you can pass in an object that implements the `logging.ILogger` interface.
+
+<details>
+<summary>Custom logger examples</summary>
+
+Here's an example using the popular `winston` logging library.
+```ts
+import winston from 'winston';
+
+const winstonLogger = winston.createLogger({...});
+
+const logger: logging.ILogger = {
+    debug: (msg, ...args) => winstonLogger.debug(msg, ...args),
+    info: (msg, ...args) => winstonLogger.info(msg, ...args),
+    warn: (msg, ...args) => winstonLogger.warn(msg, ...args),
+    error: (msg, ...args) => winstonLogger.error(msg, ...args),
+};
+```
+
+Here's an example using the popular `pino` logging library.
+
+```ts
+import pino from 'pino';
+
+const pinoLogger = pino({...});
+
+const logger: logging.ILogger = {
+  debug: (msg, ...args) => pinoLogger.debug(args, msg),
+  info: (msg, ...args) => pinoLogger.info(args, msg),
+  warn: (msg, ...args) => pinoLogger.warn(args, msg),
+  error: (msg, ...args) => pinoLogger.error(args, msg),
+};
+```
+</details>
+
+
+### Custom Fetch
+
+The SDK provides a low-level `fetch` method for making custom HTTP requests while still
+benefiting from SDK-level configuration like authentication, retries, timeouts, and logging.
+This is useful for calling API endpoints not yet supported in the SDK.
+
+```typescript
+const response = await client.fetch("/v1/custom/endpoint", {
+    method: "GET",
+}, {
+    timeoutInSeconds: 30,
+    maxRetries: 3,
+    headers: {
+        "X-Custom-Header": "custom-value",
+    },
+});
+
+const data = await response.json();
+```
+
+### Runtime Compatibility
+
+
+The SDK works in the following runtimes:
+
+
+
+- Node.js 18+
+- Vercel
+- Cloudflare Workers
+- Deno v1.25+
+- Bun 1.0+
+- React Native
+
 
 ## Attribution
 
 Built on [fern-cli-sdk](https://github.com/fern-api/fern), Copyright Fern, licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
+
+## Contributing
+
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+an issue first to discuss with us!
+
+On the other hand, contributions to the README are always very welcome!

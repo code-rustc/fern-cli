@@ -1,76 +1,154 @@
-# CLI-025 Petstore CLI Reference
+# Reference
+## Pets
+<details><summary><code>client.pets.<a href="/src/api/resources/pets/client/Client.ts">listPets</a>({ ...params }) -> CodeRustcApi.Pet[]</code></summary>
+<dl>
+<dd>
 
-Full command reference for `cli-025-petstore`.
+#### 🔌 Usage
 
-## Commands
+<dl>
+<dd>
 
-- [`cli-025-petstore pets`](#cli-025-petstore-pets)
+<dl>
+<dd>
 
----
+```typescript
+await client.pets.listPets();
 
-### `cli-025-petstore pets`
+```
+</dd>
+</dl>
+</dd>
+</dl>
 
-#### `cli-025-petstore pets create-pet`
+#### ⚙️ Parameters
 
-Create a pet
+<dl>
+<dd>
 
-`POST /pets`
+<dl>
+<dd>
 
-| Flag | Type | Required | Description |
-|------|------|----------|-------------|
-| `--json` | `JSON` | Yes | Request body as JSON (or use individual body-field flags) |
+**request:** `CodeRustcApi.ListPetsRequest` 
+    
+</dd>
+</dl>
 
-#### `cli-025-petstore pets get-pet`
+<dl>
+<dd>
 
-Get a pet
+**requestOptions:** `PetsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-`GET /pets/{petId}`
 
-| Flag | Type | Required | Description |
-|------|------|----------|-------------|
-| `--pet-id` | `integer` | Yes |  |
+</dd>
+</dl>
+</details>
 
-#### `cli-025-petstore pets list-pets`
+<details><summary><code>client.pets.<a href="/src/api/resources/pets/client/Client.ts">createPet</a>({ ...params }) -> CodeRustcApi.Pet</code></summary>
+<dl>
+<dd>
 
-List pets
+#### 🔌 Usage
 
-`GET /pets`
+<dl>
+<dd>
 
-| Flag | Type | Required | Description |
-|------|------|----------|-------------|
-| `--limit` | `integer` | No |  |
+<dl>
+<dd>
 
----
+```typescript
+await client.pets.createPet({
+    name: "Rex",
+    tag: "dog"
+});
 
-## Global flags
+```
+</dd>
+</dl>
+</dd>
+</dl>
 
-These flags are available on every command:
+#### ⚙️ Parameters
 
-| Flag | Description |
-|------|-------------|
-| `--dry-run` | Print the HTTP request without sending it |
-| `--json <JSON\|->` | Supply the request body as JSON (or `-` for stdin) |
-| `--params <JSON>` | Merge extra parameters as JSON |
-| `--format <json\|table\|yaml\|csv>` | Output format (default: `json`) |
-| `--output <PATH>` | Write binary responses to a file |
-| `--base-url <URL>` | Override the API base URL |
-| `--no-extract` | Print the full response body instead of the `x-fern-sdk-return-value` extraction |
-| `--no-retry` | Disable retries declared by `x-fern-retries`, including network errors |
-| `-q, --quiet` | Suppress stdout on success |
-| `-h, --help` | Print help |
-| `-V, --version` | Print version |
+<dl>
+<dd>
 
-Operations the spec describes how to page (via `x-fern-pagination` or a root `page_token` parameter) also accept:
+<dl>
+<dd>
 
-| Flag | Description |
-|------|-------------|
-| `--page-all` | Auto-paginate and stream all results |
-| `--page-limit <N>` | Max pages to fetch (default: `10`) |
-| `--page-delay <MS>` | Delay between page fetches in milliseconds (default: `100`) |
-| `--no-pager` | Disable the pager even on interactive terminals |
+**request:** `CodeRustcApi.NewPet` 
+    
+</dd>
+</dl>
 
-Operations the spec marks as streaming (via `x-fern-streaming`) also accept:
+<dl>
+<dd>
 
-| Flag | Description |
-|------|-------------|
-| `--no-stream` | Buffer the streaming response and print it as a single value once complete |
+**requestOptions:** `PetsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.pets.<a href="/src/api/resources/pets/client/Client.ts">getPet</a>({ ...params }) -> CodeRustcApi.Pet</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.pets.getPet({
+    petId: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CodeRustcApi.GetPetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PetsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
