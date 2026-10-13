@@ -20,38 +20,6 @@ generations:
       fernapi/fern-typescript-sdk: 3.86.0
 current_generation: 1bd9c4c02a28681cfc2226e2a3991441d2906120
 patches:
-  - id: patch-604253a5
-    content_hash: sha256:5e6df64e52a2b0c216265c226bf1d6e570b87fcbbba61838122de7ee562fc9e4
-    original_commit: 604253a520930bb8d6f85e2c84c472956c579bb3
-    original_message: "Customer X: add UAT_CUSTOM_MARKER export"
-    original_author: UAT Customer <uat-customer@example.com>
-    base_generation: 1bd9c4c02a28681cfc2226e2a3991441d2906120
-    files:
-      - src/index.ts
-    patch_content: |
-      diff --git a/src/index.ts b/src/index.ts
-      index c5a287b..aa7b212 100644
-      --- a/src/index.ts
-      +++ b/src/index.ts
-      @@ -4,3 +4,6 @@ export { CodeRustcApiClient } from './Client.js';
-       export { CodeRustcApiEnvironment } from './environments.js';
-       export { CodeRustcApiError, CodeRustcApiTimeoutError } from './errors/index.js';
-       export * from './exports.js';
-      +
-      +// UAT-022 customer customization X (no conflict expected)
-      +export const UAT_CUSTOM_MARKER = "kept-by-replay";
-    theirs_snapshot:
-      src/index.ts: |
-        export * as CodeRustcApi from './api/index.js';
-        export type { BaseClientOptions, BaseRequestOptions } from './BaseClient.js';
-        export { CodeRustcApiClient } from './Client.js';
-        export { CodeRustcApiEnvironment } from './environments.js';
-        export { CodeRustcApiError, CodeRustcApiTimeoutError } from './errors/index.js';
-        export * from './exports.js';
-
-        // UAT-022 customer customization X (no conflict expected)
-        export const UAT_CUSTOM_MARKER = "kept-by-replay";
-    user_owned: true
   - id: patch-6101ba7f
     content_hash: sha256:f1be738bc096f7341f4cdfa97c4cbb4822ecf2e4fea0f1a3479563060366c51a
     original_commit: 6101ba7f83a7648e1165a8d4e7b49f61b71a2e2d
@@ -308,3 +276,15 @@ patches:
           }
         }
     status: resolving
+dismissals:
+  - patch_id: patch-604253a5
+    original_commit: 604253a520930bb8d6f85e2c84c472956c579bb3
+    original_message: "Customer X: add UAT_CUSTOM_MARKER export"
+    content_hashes:
+      - sha256:5e6df64e52a2b0c216265c226bf1d6e570b87fcbbba61838122de7ee562fc9e4
+      - sha256:063d6b9556844297504d583bbdd232a8c005a0cb6e6d8c0078358cc1e8b71390
+    dismissed_at: 2026-10-13T15:46:59.125Z
+    via: forget
+forgotten_hashes:
+  - sha256:5e6df64e52a2b0c216265c226bf1d6e570b87fcbbba61838122de7ee562fc9e4
+  - sha256:063d6b9556844297504d583bbdd232a8c005a0cb6e6d8c0078358cc1e8b71390
