@@ -27,7 +27,8 @@ export class PetsClient {
   }
 
   /**
-   * UAT-022 customer note Y: lists pets from the customer cache.
+   * Returns every pet in the store, newest first.
+   *
    * @param {CodeRustcApi.ListPetsRequest} request
    * @param {PetsClient.RequestOptions} requestOptions - Request-specific configuration.
    *
