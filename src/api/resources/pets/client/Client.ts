@@ -25,6 +25,7 @@ export class PetsClient {
 
     /**
      * Returns every pet in the store, newest first.
+     * UAT-022 customer note Y: lists pets from the customer cache.
      *
      * @param {CodeRustcApi.ListPetsRequest} request
      * @param {PetsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -216,3 +217,4 @@ export class PetsClient {
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/pets/{petId}");
     }
 }
+

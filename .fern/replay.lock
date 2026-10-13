@@ -304,4 +304,4 @@ patches:
                 return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/pets/{petId}");
             }
         }
-    status: unresolved
+    status: resolving
