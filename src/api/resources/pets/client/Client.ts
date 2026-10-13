@@ -27,6 +27,7 @@ export class PetsClient {
   }
 
   /**
+   * UAT-022 customer note Y: lists pets from the customer cache.
    * @param {CodeRustcApi.ListPetsRequest} request
    * @param {PetsClient.RequestOptions} requestOptions - Request-specific configuration.
    *
