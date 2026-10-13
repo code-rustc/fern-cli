@@ -1,76 +1,168 @@
-# CLI-025 Petstore CLI Reference
+# Reference
+## Pets
+<details><summary><code>client.pets.<a href="/src/api/resources/pets/client/Client.ts">listPets</a>({ ...params }) -> CodeRustcApi.Pet[]</code></summary>
+<dl>
+<dd>
 
-Full command reference for `cli-025-petstore`.
+#### 📝 Description
 
-## Commands
+<dl>
+<dd>
 
-- [`cli-025-petstore pets`](#cli-025-petstore-pets)
+<dl>
+<dd>
 
----
+Returns every pet in the store, newest first.
+</dd>
+</dl>
+</dd>
+</dl>
 
-### `cli-025-petstore pets`
+#### 🔌 Usage
 
-#### `cli-025-petstore pets create-pet`
+<dl>
+<dd>
 
-Create a pet
+<dl>
+<dd>
 
-`POST /pets`
+```typescript
+await client.pets.listPets();
 
-| Flag | Type | Required | Description |
-|------|------|----------|-------------|
-| `--json` | `JSON` | Yes | Request body as JSON (or use individual body-field flags) |
+```
+</dd>
+</dl>
+</dd>
+</dl>
 
-#### `cli-025-petstore pets get-pet`
+#### ⚙️ Parameters
 
-Get a pet
+<dl>
+<dd>
 
-`GET /pets/{petId}`
+<dl>
+<dd>
 
-| Flag | Type | Required | Description |
-|------|------|----------|-------------|
-| `--pet-id` | `integer` | Yes |  |
+**request:** `CodeRustcApi.ListPetsRequest` 
+    
+</dd>
+</dl>
 
-#### `cli-025-petstore pets list-pets`
+<dl>
+<dd>
 
-List pets
+**requestOptions:** `PetsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-`GET /pets`
 
-| Flag | Type | Required | Description |
-|------|------|----------|-------------|
-| `--limit` | `integer` | No |  |
+</dd>
+</dl>
+</details>
 
----
+<details><summary><code>client.pets.<a href="/src/api/resources/pets/client/Client.ts">createPet</a>({ ...params }) -> CodeRustcApi.Pet</code></summary>
+<dl>
+<dd>
 
-## Global flags
+#### 🔌 Usage
 
-These flags are available on every command:
+<dl>
+<dd>
 
-| Flag | Description |
-|------|-------------|
-| `--dry-run` | Print the HTTP request without sending it |
-| `--json <JSON\|->` | Supply the request body as JSON (or `-` for stdin) |
-| `--params <JSON>` | Merge extra parameters as JSON |
-| `--format <json\|table\|yaml\|csv>` | Output format (default: `json`) |
-| `--output <PATH>` | Write binary responses to a file |
-| `--base-url <URL>` | Override the API base URL |
-| `--no-extract` | Print the full response body instead of the `x-fern-sdk-return-value` extraction |
-| `--no-retry` | Disable retries declared by `x-fern-retries`, including network errors |
-| `-q, --quiet` | Suppress stdout on success |
-| `-h, --help` | Print help |
-| `-V, --version` | Print version |
+<dl>
+<dd>
 
-Operations the spec describes how to page (via `x-fern-pagination` or a root `page_token` parameter) also accept:
+```typescript
+await client.pets.createPet({
+    name: "Rex",
+    tag: "dog"
+});
 
-| Flag | Description |
-|------|-------------|
-| `--page-all` | Auto-paginate and stream all results |
-| `--page-limit <N>` | Max pages to fetch (default: `10`) |
-| `--page-delay <MS>` | Delay between page fetches in milliseconds (default: `100`) |
-| `--no-pager` | Disable the pager even on interactive terminals |
+```
+</dd>
+</dl>
+</dd>
+</dl>
 
-Operations the spec marks as streaming (via `x-fern-streaming`) also accept:
+#### ⚙️ Parameters
 
-| Flag | Description |
-|------|-------------|
-| `--no-stream` | Buffer the streaming response and print it as a single value once complete |
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CodeRustcApi.NewPet` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PetsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.pets.<a href="/src/api/resources/pets/client/Client.ts">getPet</a>({ ...params }) -> CodeRustcApi.Pet</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.pets.getPet({
+    petId: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CodeRustcApi.GetPetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PetsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
